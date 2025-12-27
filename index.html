@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Explorer</title>
+  <style>
+    :root {
+      --bg: #0d141b;
+      --header: #0b1218;
+      --card: #121b23;
+      --accent: #00e0ff;
+      --price: #7ce7ff;
+      --text: #ffffff;
+      --muted: #9fb3c8;
+      --danger: #d21f3c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0b1218, #0d141b);
+      color: var(--text);
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 24px;
+      background: var(--header);
+    }
+
+    .logo {
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 18px;
+      white-space: nowrap;
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      background: #091017;
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+
+    .search input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn.primary {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn:hover { opacity: 0.85; transform: scale(1.03); }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      padding: 48px 24px;
+      align-items: center;
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    .hero h2 {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 24px;
+    }
+
+    section h3 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* CARD */
+    .card {
+
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    .fav {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      cursor: pointer;
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
+    .fav.active { color: red; opacity: 1; }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 8px 0;
+    }
+
+    .price {
+      color: var(--price);
+      font-weight: bold;
+      margin-top: auto;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      background: #081017;
+    }
+
+    /* ADAPTIVE */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { grid-template-columns: 1fr; text-align: center; }
+    }
+
+    @media (max-width: 500px) {
+      header { flex-wrap: wrap; }
+      .grid { grid-template-columns: 1fr; }
+      .hero h2 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">food explorer</div>
+  <div class="search">
+    <input type="text" placeholder="Buscar pratos ou ingredientes" id="search" />
+  </div>
+  <button class="btn primary" onclick="addDish()">Novo prato</button>
+</header>
+
+<div class="hero">
+  <img src="img/pngegg 1 (1).png" />
+  <div>
+    <h2>Sabores inigualáveis</h2>
+    <p>Sinta o cuidado do preparo com ingredientes selecionados</p>
+  </div>
+</div>
+
+<section>
+  <h3>Refeições</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" />
+      <strong>Salada Ravanello</strong>
+      <p>Rabanetes, folhas verdes e molho cítrico</p>
+      <div class="price">R$ 49,97</div>
+    </div>
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" />
+      <strong>Spaghetti Gambe</strong>
+      <p>Massa fresca com camarões</p>
+      <div class="price">R$ 79,97</div>
+    </div>
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" />
+      <strong>Torradas de Parma</strong>
+      <p>Presunto de parma e rúcula</p>
+      <div class="price">R$ 25,97</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Sobremesas</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1505253216365-1dce3f6b97b6" />
+      <strong>Prugna Pie</strong>
+      <p>Torta de ameixa artesanal</p>
+      <div class="price">R$ 79,97</div>
+    </div>
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1541781286675-1a7b5a6c0c4b" />
+      <strong>Peachy pastry</strong>
+      <p>Folhado de pêssego</p>
+      <div class="price">R$ 32,97</div>
+    </div>
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" />
+      <strong>Macarons</strong>
+      <p>Clássicos franceses</p>
+      <div class="price">R$ 79,97</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Bebidas</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" />
+      <strong>Espresso</strong>
+      <p>Café encorpado</p>
+      <div class="price">R$ 15,97</div>
+    </div>
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc" />
+      <strong>Suco de maracujá</strong>
+      <p>Natural e refrescante</p>
+      <div class="price">R$ 13,97</div>
+    </div>
+    <div class="card">
+      <div class="fav" onclick="toggleFav(this)">♡</div>
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" />
+      <strong>Chá de outono</strong>
+      <p>Canela e especiarias</p>
+      <div class="price">R$ 19,97</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 food explorer
+</footer>
+
+<script>
+  function toggleFav(el) {
+    el.classList.toggle('active');
+    el.textContent = el.classList.contains('active') ? '♥' : '♡';
+  }
+
+  function addDish() {
+    alert('Интерактив: добавление нового блюда');
+  }
+
+  document.getElementById('search').addEventListener('input', e => {
+    const val = e.target.value.toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.display = card.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
